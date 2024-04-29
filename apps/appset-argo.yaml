@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: ApplicationSet
+metadata:
+  name: webserver
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: cluster2
+        url: https://C8496C19BD8CAB5048169AC7093C5168.gr7.us-west-2.eks.amazonaws.com
+      - cluster: in-cluster
+        url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{.cluster}}-webserver'
+    spec:
+      project: default
+      source:
+        path: 'chart'
+        repoURL: 'https://github.com/hellenavilarosa/argocd.git'
+        targetRevision: HEAD
+        helm:
+          valueFiles:
+          - values.yaml
+          - mycluster/
+      destination:
+        name: '{{.url}}'
+        namespace: webserver-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+
