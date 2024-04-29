@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: go-server
 spec:
-  replicas: "{{ .Values.replicas }}"
+  replicas: "{{ .Values.replicaCount }}"
   selector:
     matchLabels:
       app: go-server # Add this label
