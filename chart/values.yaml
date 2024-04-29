@@ -1,3 +1,6 @@
 image:
   repository: rinkiyakedad/go-server
   tag: acad55220e5267404d7f5cbc0e1104a92a588de9
+
+replicas: 6 
+
