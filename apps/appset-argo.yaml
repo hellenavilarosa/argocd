@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1 
 kind: ApplicationSet
 metadata:
-  name: webserver
+  name: webserver2
 spec:
   generators:
   - list:
@@ -12,7 +12,7 @@ spec:
         url: https://kubernetes.default.svc
   template:
     metadata:
-      name: '{{.cluster}}-webserver'
+      name: '{{cluster}}-webserver'
     spec:
       project: default
       source:
@@ -24,12 +24,11 @@ spec:
           - values.yaml
           - mycluster/
       destination:
-        name: '{{.url}}'
-        namespace: webserver-system
+        server: '{{url}}'
+        namespace: default
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-        - CreateNamespace=true
+
 
