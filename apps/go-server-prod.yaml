@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'go-server'
+spec:
+  destination:
+    namespace: 'default'
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: 'chart'
+    repoURL: 'https://github.com/hellenavilarosa/argocd.git'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  project: 'default'
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
