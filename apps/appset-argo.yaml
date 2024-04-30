@@ -27,8 +27,8 @@ spec:
         server: '{{url}}'
         namespace: default
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        # automated:
+        #   prune: true
+        #   selfHeal: true
 
 
