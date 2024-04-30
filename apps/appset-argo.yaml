@@ -16,13 +16,13 @@ spec:
     spec:
       project: default
       source:
-        path: 'chart'
+        path: chart
+        # path: 'chart'
         repoURL: 'https://github.com/hellenavilarosa/argocd.git'
         targetRevision: HEAD
-        helm:
-          valueFiles:
-          - values.yaml
-          - mycluster/
+        # helm:
+        #   valueFiles:
+        #   - values.yaml
       destination:
         server: '{{url}}'
         namespace: default
