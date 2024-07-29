@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crossplane
+  namespace: crossplane-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: crossplane
+        env:
+        - name: AWS_CREDENTIALS
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: credentials

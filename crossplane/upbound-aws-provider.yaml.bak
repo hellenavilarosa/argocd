@@ -1,0 +1,23 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-aws-upbound
+spec:
+  package: "xpkg.upbound.io/upbound/provider-aws:v0.40.0"
+  controllerConfigRef:
+    name: provider-aws-upbound
+---
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: provider-aws-upbound
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::420373265166:role/crossplane-role # Enter your IAM Role ARN
+
+spec:
+  podSecurityContext:
+    fsGroup: 2000 # This is needed for IRSA.
+  args:
+    - --debug
+    - --enable-management-policies
+    

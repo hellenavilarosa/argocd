@@ -1,0 +1,36 @@
+apiVersion: rds.aws.crossplane.io/v1alpha1
+kind: DBInstance
+metadata:
+  name: hellen-catalog-crossplane
+spec:
+  forProvider:
+    region: us-west-2
+    allocatedStorage: 20
+    dbInstanceClass: db.t4g.micro
+    dbName: catalog
+    engine: mysql
+    engineVersion: "8.0"
+    masterUsername: admin
+    autogeneratePassword: true
+    skipFinalSnapshot: true
+    applyImmediately: true
+    dbSubnetGroupNameRef:
+      name: hellen-catalog-crossplane
+    vpcSecurityGroupIDRefs:
+      - name: hellen-catalog-crossplane
+    masterUserPasswordSecretRef:
+      key: password
+      name: catalog-db-crossplane-passwd
+      namespace: catalog
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: hellen
+    - key: managed-by
+      value: crossplane
+  writeConnectionSecretToRef:
+    name: catalog-db-crossplane
+    namespace: catalog
+  providerConfigRef:
+    name: default
